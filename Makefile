@@ -6,7 +6,7 @@
 #    By: bedarenn <bedarenn@student.42angouleme.fr  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/25 23:28:11 by bedarenn          #+#    #+#              #
-#    Updated: 2024/01/04 20:56:18 by bedarenn         ###   ########.fr        #
+#    Updated: 2024/01/05 19:15:34 by bedarenn         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,7 +32,10 @@ SRCS = \
 	struct_assessor.c \
 	get_parts.c \
 	get_parts_tools.c \
-	get_map.c
+	get_map.c \
+	get_map_tools.c \
+	get_color.c \
+	key_hook.c
 
 OBJS = $(addprefix $(DIR_OBJS), $(SRCS:%.c=%.o))
 

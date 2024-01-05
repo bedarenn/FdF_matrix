@@ -6,7 +6,7 @@
 /*   By: bedarenn <bedarenn@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 14:49:41 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/01/04 21:16:47 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/01/05 19:17:43 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ t_coord	set_coord(int x, int y, int z);
 t_color	set_color(unsigned char t, unsigned char r,
 			unsigned char g, unsigned char b);
 t_color	set_color_hex(unsigned int h);
-void	add_point_color(t_point *point, t_color new);
+t_list	*lstnew_color(t_color new);
 
 /*    get_parts    */
 char	***get_parts(char *file_name);
@@ -29,5 +29,21 @@ char	***get_parts(char *file_name);
 size_t	file_size(char **file);
 t_coord	parts_size(char ***parts);
 void	free_parts(char ***parts);
+
+/*    get_map    */
+t_point	**get_map(char ***parts, t_coord size);
+t_point	*get_line(char **part, t_coord i, t_coord size);
+t_point	get_point(char *str, t_coord i, t_coord size);
+	/*    Tools    */
+void	free_map(t_point **map0, t_coord size);
+void	print_point(t_point point);
+
+/*   get_color    */
+char	*skip_nb(char *str);
+t_color	get_color(char *str);
+
+/*    key_hook    */
+int		key_hook(int keycode, t_hook_var *var);
+int		win_close(t_hook_var *var);
 
 #endif

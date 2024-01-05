@@ -6,7 +6,7 @@
 /*   By: bedarenn <bedarenn@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 17:09:54 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/01/04 20:50:59 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/01/05 19:01:06 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,11 +55,12 @@ char	***get_parts(char *file_name)
 	if (!fd)
 		return (NULL);
 	file = get_file(fd);
+	ft_printf("read done\n");
 	close(fd);
 	if (!file)
 		return (NULL);
 	parts = split_file(file);
-	ft_putstrs_fd(file, 1);
+	ft_printf("split done\n");
 	ft_free_tab(file);
 	return (parts);
 }

@@ -6,7 +6,7 @@
 /*   By: bedarenn <bedarenn@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/30 13:57:14 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/01/04 17:16:46 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/01/05 18:36:27 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ int		ft_isspace(int c);
 
 int		ft_toupper(int c);
 int		ft_tolower(int c);
+char	*ft_strupper(char *str0);
+char	*ft_strlower(char *str0);
 
 size_t	ft_strlen(const char *str);
 size_t	ft_strlen_set(const char *s0, int c);
@@ -51,6 +53,8 @@ char	*ft_strtrim(char const *s, char const *set);
 
 int		ft_atoi(const char *nptr);
 char	*ft_itoa(int n);
+int		ft_atoi_base(const char *nptr, char *base, size_t size);
+size_t	ft_atou_base(const char *nptr, char *base, size_t size);
 
 void	*ft_calloc(size_t nmemb, size_t size);
 char	*ft_strdup(const char *s);

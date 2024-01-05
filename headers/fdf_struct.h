@@ -6,7 +6,7 @@
 /*   By: bedarenn <bedarenn@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 16:11:52 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/01/04 21:16:43 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/01/05 16:03:06 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ typedef struct s_color
 typedef struct s_point
 {
 	t_coord	coord;
+	t_list	*color0;
 	t_list	*color;
 }	t_point;
 

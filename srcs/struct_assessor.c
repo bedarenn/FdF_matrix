@@ -6,12 +6,13 @@
 /*   By: bedarenn <bedarenn@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 16:21:10 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/01/04 21:24:34 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/01/05 15:49:45 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <fdf_struct.h>
 #include <stdlib.h>
+#include <ft_printf.h>
 
 t_coord	set_coord(int x, int y, int z)
 {
@@ -55,13 +56,13 @@ t_color	set_color_hex(unsigned int h)
 	return (color);
 }
 
-t_color	*add_point_color(t_point point, t_color new)
+t_list	*lstnew_color(t_color new)
 {
 	t_list	*list;
 	t_color	*color;
 
 	color = malloc(sizeof(t_color));
-	if (color)
+	if (!color)
 		return (NULL);
 	*color = new;
 	list = ft_lstnew(color);
@@ -70,16 +71,6 @@ t_color	*add_point_color(t_point point, t_color new)
 		free(color);
 		return (NULL);
 	}
-	if (!point.color)
-	{
-		list->next = list;
-		point.color = list;
-	}
-	else
-	{
-		list->next = point.color->next;
-		point.color->next = list;
-	}
-	return (color);
+	return (list);
 }
 
