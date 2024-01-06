@@ -6,7 +6,7 @@
 /*   By: bedarenn <bedarenn@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 14:49:41 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/01/05 19:17:43 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/01/06 12:53:54 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 
 /*    struct_assessor    */
 t_coord	set_coord(int x, int y, int z);
+t_trigo	set_trigo(double x, double y, double z);
 t_color	set_color(unsigned char t, unsigned char r,
 			unsigned char g, unsigned char b);
 t_color	set_color_hex(unsigned int h);
@@ -45,5 +46,9 @@ t_color	get_color(char *str);
 /*    key_hook    */
 int		key_hook(int keycode, t_hook_var *var);
 int		win_close(t_hook_var *var);
+
+/*    print_line    */
+void	put_pxl(t_data *data, int x, int y, int color);
+void	print_line(t_point p1, t_point p2, t_data *data, t_zoom zoom);
 
 #endif

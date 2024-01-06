@@ -6,7 +6,7 @@
 /*   By: bedarenn <bedarenn@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 16:11:52 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/01/05 16:03:06 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/01/06 12:48:36 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,13 @@ typedef struct s_data
 	int		endian;
 }	t_data;
 
+typedef struct s_trigo
+{
+	double	x;
+	double	y;
+	double	z;
+}	t_trigo;
+
 typedef struct s_coord
 {
 	int	x;
@@ -54,12 +61,20 @@ typedef struct s_point
 	t_list	*color;
 }	t_point;
 
+typedef struct s_zoom
+{
+	double	len;
+	int		push_l;
+	int		push_r;
+}	t_zoom;
+
 typedef struct s_hook_var
 {
 	t_mlx	mlx;
 	t_data	data;
 	t_point	**map;
 	t_coord	size;
+	t_zoom	zoom;
 }	t_hook_var;
 
 #endif

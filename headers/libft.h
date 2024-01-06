@@ -6,7 +6,7 @@
 /*   By: bedarenn <bedarenn@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/30 13:57:14 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/01/05 18:36:27 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/01/06 13:04:37 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,13 @@ int		ft_toupper(int c);
 int		ft_tolower(int c);
 char	*ft_strupper(char *str0);
 char	*ft_strlower(char *str0);
+
+int		ft_abs(int nb);
+int		ft_abs_f(float nb);
+int		ft_abs_d(double nb);
+int		ft_sig(int nb);
+int		ft_sig_f(float nb);
+int		ft_sig_d(double nb);
 
 size_t	ft_strlen(const char *str);
 size_t	ft_strlen_set(const char *s0, int c);

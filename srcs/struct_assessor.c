@@ -6,7 +6,7 @@
 /*   By: bedarenn <bedarenn@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 16:21:10 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/01/05 15:49:45 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/01/06 12:54:02 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,16 @@ t_coord	set_coord(int x, int y, int z)
 	coord.y = y;
 	coord.z = z;
 	return (coord);
+}
+
+t_trigo	set_trigo(double x, double y, double z)
+{
+	t_trigo	trigo;
+
+	trigo.x = x;
+	trigo.y = y;
+	trigo.z = z;
+	return (trigo);
 }
 
 t_color	set_color(unsigned char t, unsigned char r,

@@ -6,7 +6,7 @@
 /*   By: bedarenn <bedarenn@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 14:47:35 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/01/05 19:19:13 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/01/06 13:24:16 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,10 +59,16 @@ t_data	init_img(t_mlx mlx, int width, int height)
 int	main(int argc, char **argv)
 {
 	t_hook_var	var;
+	t_point		p1;
+	t_point		p2;
 
 	if (argc == 1)
 		return (1);
-	var = init_map(argv[1]);
+	p1.coord = set_coord(-1, 0, -1);
+	p2.coord = set_coord(1, 0, 1);
+	var.zoom.len = 100;
+	print_line(p2, p1, NULL, var.zoom);
+	/*var = init_map(argv[1]);
 	if (!var.map)
 		return (1);
 	var.mlx = init_mlx(argv[1]);
@@ -70,6 +76,6 @@ int	main(int argc, char **argv)
 	mlx_key_hook(var.mlx.win, key_hook, &var);
 	mlx_hook(var.mlx.win, 17, 1L << 17, win_close, &var);
 	mlx_loop(var.mlx.ptr);
-	free_map(var.map, var.size);
+	free_map(var.map, var.size);*/
 	return (0);
 }
