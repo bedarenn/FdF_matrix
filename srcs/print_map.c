@@ -1,32 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   key_hook.c                                         :+:      :+:    :+:   */
+/*   print_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bedarenn <bedarenn@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/05 19:11:49 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/01/07 19:28:05 by bedarenn         ###   ########.fr       */
+/*   Created: 2024/01/07 18:38:13 by bedarenn          #+#    #+#             */
+/*   Updated: 2024/01/07 19:09:48 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <fdf.h>
-#include <mlx.h>
+#include <ft_printf.h>
 
-int	key_hook(int keycode, t_var *var)
+void	print_map(t_point **map, t_coord size, t_zoom zoom, t_data *data)
 {
-	if (keycode == 65307)
-		win_close(var);
-	return (0);
-}
+	t_coord	i;
 
-int	win_close(t_var *var)
-{
-	mlx_destroy_image(var->mlx.ptr, var->data.img);
-	mlx_destroy_window(var->mlx.ptr, var->mlx.win);
-	mlx_destroy_display(var->mlx.ptr);
-	free(var->mlx.ptr);
-	free_map(var->map, var->size);
-	exit(EXIT_SUCCESS);
-	return (0);
+	i.y = 0;
+	while (i.y < size.y)
+	{
+		i.x = 0;
+		while (i.x < size.x)
+		{
+			if (i.x > 0)
+				print_line(map[i.y][i.x], map[i.y][i.x - 1], data, zoom);
+			if (i.y > 0)
+				print_line(map[i.y][i.x], map[i.y - 1][i.x], data, zoom);
+			i.x++;
+		}
+		i.y++;
+	}
 }

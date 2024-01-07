@@ -6,7 +6,7 @@
 #    By: bedarenn <bedarenn@student.42angouleme.fr  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/25 23:28:11 by bedarenn          #+#    #+#              #
-#    Updated: 2024/01/06 12:38:29 by bedarenn         ###   ########.fr        #
+#    Updated: 2024/01/07 19:20:08 by bedarenn         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,6 +29,7 @@ GNL = \
 SRCS = \
 	$(addprefix $(DIR_GNL), $(GNL)) \
 	main.c \
+	init_var.c \
 	struct_assessor.c \
 	get_parts.c \
 	get_parts_tools.c \
@@ -36,6 +37,7 @@ SRCS = \
 	get_map_tools.c \
 	get_color.c \
 	print_line.c \
+	print_map.c \
 	key_hook.c
 
 OBJS = $(addprefix $(DIR_OBJS), $(SRCS:%.c=%.o))

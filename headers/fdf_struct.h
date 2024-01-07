@@ -6,7 +6,7 @@
 /*   By: bedarenn <bedarenn@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 16:11:52 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/01/06 12:48:36 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/01/07 19:26:23 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,17 +64,17 @@ typedef struct s_point
 typedef struct s_zoom
 {
 	double	len;
-	int		push_l;
-	int		push_r;
+	int		push_h;
+	int		push_v;
 }	t_zoom;
 
-typedef struct s_hook_var
+typedef struct s_var
 {
 	t_mlx	mlx;
 	t_data	data;
 	t_point	**map;
 	t_coord	size;
 	t_zoom	zoom;
-}	t_hook_var;
+}	t_var;
 
 #endif

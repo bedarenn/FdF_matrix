@@ -6,7 +6,7 @@
 /*   By: bedarenn <bedarenn@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 14:49:41 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/01/06 12:53:54 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/01/07 19:28:08 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,12 @@
 
 # include <fdf_struct.h>
 # include <fdf_const.h>
+
+/*    init_var    */
+t_var	init_map(char *file_name);
+t_mlx	init_mlx(char *title);
+t_data	init_img(t_mlx mlx, int width, int height);
+t_zoom	init_zoom(t_coord size);
 
 /*    struct_assessor    */
 t_coord	set_coord(int x, int y, int z);
@@ -44,11 +50,14 @@ char	*skip_nb(char *str);
 t_color	get_color(char *str);
 
 /*    key_hook    */
-int		key_hook(int keycode, t_hook_var *var);
-int		win_close(t_hook_var *var);
+int		key_hook(int keycode, t_var *var);
+int		win_close(t_var *var);
 
 /*    print_line    */
 void	put_pxl(t_data *data, int x, int y, int color);
 void	print_line(t_point p1, t_point p2, t_data *data, t_zoom zoom);
+
+/*    print_map    */
+void	print_map(t_point **map, t_coord size, t_zoom zoom, t_data *data);
 
 #endif

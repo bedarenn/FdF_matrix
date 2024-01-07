@@ -6,12 +6,83 @@
 /*   By: bedarenn <bedarenn@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/06 12:36:34 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/01/06 13:33:01 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/01/07 19:22:24 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <fdf.h>
-#include <stdio.h>
+#include <libft.h>
+#include <ft_printf.h>
+
+static int	print_line_condition(t_coord v, int i, t_coord *i_coord)
+{
+	if (i_coord->x < i / ft_abs(v.y))
+	{
+		i_coord->x++;
+		if (i_coord->y < i / ft_abs(v.x))
+			i_coord->y++;
+		return (1);
+	}
+	else if (i_coord->y < i / ft_abs(v.x))
+	{
+		i_coord->y++;
+		return (1);
+	}
+	return (0);
+}
+
+t_color	get_average_color(t_color *color1, t_color *color2,
+	float percent)
+{
+	t_color			color;
+	float			rpercent;
+
+	rpercent = 1 - percent;
+	color.t = color1->t * percent + color2->t * rpercent;
+	color.r = color1->r * percent + color2->r * rpercent;
+	color.g = color1->g * percent + color2->g * rpercent;
+	color.b = color1->b * percent + color2->b * rpercent;
+	color = set_color(color.t, color.r, color.g, color.b);
+	return (color);
+}
+
+/*get_average_color(p1.color->content, p2.color->content, (float)i / lenght).h*/
+static void	print_line_loop(t_point p1, t_point p2, t_coord v, t_data *data)
+{
+	int		i;
+	t_coord	i_coord;
+	int		lenght;
+
+	lenght = ft_abs(v.x) * ft_abs(v.y);
+	i_coord = set_coord(0, 0, 0);
+	i = 0;
+	put_pxl(data, p1.coord.x + (i_coord.x * ft_sig(v.x)),
+		p1.coord.y + (i_coord.y * ft_sig(v.y)),
+		get_average_color(p1.color->content,
+			p2.color->content, 0).h);
+	while (i < lenght)
+	{
+		if (print_line_condition(v, i, &i_coord))
+			put_pxl(data, p1.coord.x + (i_coord.x * ft_sig(v.x)),
+				p1.coord.y + (i_coord.y * ft_sig(v.y)),
+				get_average_color(p1.color->content,
+					p2.color->content, (float)i / lenght).h);
+		i++;
+	}
+}
+
+void	print_line(t_point p1, t_point p2, t_data *data, t_zoom zoom)
+{
+	t_coord	v;
+
+	p1.coord = set_coord(p1.coord.x * zoom.len + WIN_SIZE_X / 2 + zoom.push_v,
+			p1.coord.y * zoom.len + WIN_SIZE_Y / 2 + zoom.push_h, 0);
+	p2.coord = set_coord(p2.coord.x * zoom.len + WIN_SIZE_X / 2 + zoom.push_v,
+			p2.coord.y * zoom.len + WIN_SIZE_Y / 2 + zoom.push_h, 0);
+	v = set_coord(p2.coord.x - p1.coord.x, p2.coord.y - p1.coord.y, 0);
+	v = set_coord(v.x + (1 * ft_sig(v.x)), v.y + (1 * ft_sig(v.y)), 0);
+	print_line_loop(p1, p2, v, data);
+}
 
 void	put_pxl(t_data *data, int x, int y, int color)
 {
@@ -24,55 +95,3 @@ void	put_pxl(t_data *data, int x, int y, int color)
 		*(unsigned int *)dst = color;
 	}
 }
-
-void	print_line(t_point p1, t_point p2, t_data *data, t_zoom zoom)
-{
-	t_trigo	vector;
-	size_t	lenght;
-	t_coord	i_coord;
-	t_trigo	i_vector;
-
-	p1.coord = set_coord(p1.coord.x * zoom.len + WIN_SIZE_X / 2,
-			p1.coord.y * zoom.len + WIN_SIZE_Y / 2, 0);
-	p2.coord = set_coord(p2.coord.x * zoom.len + WIN_SIZE_X / 2,
-			p2.coord.y * zoom.len + WIN_SIZE_Y / 2, 0);
-	vector = set_trigo(p2.coord.x - p1.coord.x,
-			p2.coord.y - p1.coord.y,
-			0);
-	//i_vector = set_trigo(, , 0)
-	lenght = ft_abs(p2.coord.x - p1.coord.x) * ft_abs(p2.coord.y - p1.coord.y);
-	printf("p1 %i %i %i\n", p1.coord.x, p1.coord.y, p1.coord.z);
-	printf("p2 %i %i %i\n", p2.coord.x, p2.coord.y, p2.coord.z);
-	printf("vector %f %f %f\n", vector.x, vector.y, vector.z);
-	printf("lenght %zu\n", lenght);
-	i_coord = set_coord(0, 0, 0);
-}
-
-/*void	print_line(t_point p1, t_point p2, t_data *data, t_zoom zoom)
-{
-	t_coord	v;
-	int		lenght;
-	t_coord	index;
-	int		i;
-
-	v = set_coord(p2.coord.x - p1.coord.x, p2.coord.y - p1.coord.y);
-	v = set_coord(v.x + (1 * ft_sig(v.x)), v.y + (1 * ft_sig(v.y)));
-	lenght = ft_abs(v.x) * ft_abs(v.y);
-	index = set_coord(0, 0);
-	p1.coord = set_coord(p1.coord.x + zoom.move.x,
-			p1.coord.y + zoom.move.y);
-	p2.coord = set_coord(p2.coord.x + zoom.move.x,
-			p2.coord.y + zoom.move.y);
-	i = 0;
-	while (i < lenght)
-	{
-		if (index.x < i / ft_abs(v.y))
-			index.x++;
-		if (index.y < i / ft_abs(v.x))
-			index.y++;
-		put_pxl(data, p1.coord.x + (index.x * ft_sig(v.x)),
-			p1.coord.y + (index.y * ft_sig(v.y)),
-			get_average_color(*p2.color, *p1.color, (float)i / lenght).h);
-		i++;
-	}
-}*/
