@@ -6,7 +6,7 @@
 #    By: bedarenn <bedarenn@student.42angouleme.fr  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/25 23:28:11 by bedarenn          #+#    #+#              #
-#    Updated: 2024/01/07 19:20:08 by bedarenn         ###   ########.fr        #
+#    Updated: 2024/01/21 18:54:18 by bedarenn         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,6 +18,7 @@ DIR_SRCS = srcs/
 DIR_OBJS = objs/
 DIR_INCL = headers/
 DIR_LIBS = libs/
+DIR_WATI = $(DIR_SRCS)libwati/
 
 GNL = \
 	get_next_line.c \
@@ -36,19 +37,21 @@ SRCS = \
 	get_map.c \
 	get_map_tools.c \
 	get_color.c \
+	custom_color.c \
 	print_line.c \
 	print_map.c \
+	multiply_matrix.c \
 	key_hook.c
 
 OBJS = $(addprefix $(DIR_OBJS), $(SRCS:%.c=%.o))
 
-CFLAGS = -Wall -Wextra #-Werror -g
+CFLAGS = -Wall -Wextra -Werror -g
 IFLAGS = -I$(DIR_INCL)
-LFLAGS = -L$(DIR_LIBS) -lmlx -lXext -lX11 -lftprintf -lft -lm
+LFLAGS = -L$(DIR_LIBS) -lmlx -lXext -lX11 -lwati -lm
 
 NAME = fdf
 
-all: $(NAME)
+all: libwati $(NAME)
 
 $(NAME): $(OBJS)
 	$(CC) $^ $(LFLAGS) -o $@
@@ -64,6 +67,11 @@ fclean: clean
 	rm -f $(NAME)
 
 re: fclean all
+
+libwati:
+	make -C $(DIR_WATI)
+	cp $(DIR_WATI)libwati.h $(DIR_INCL)
+	cp $(DIR_WATI)libwati.a $(DIR_LIBS)
 
 run: re
 	./$(NAME)

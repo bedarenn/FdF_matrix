@@ -6,15 +6,15 @@
 /*   By: bedarenn <bedarenn@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 20:37:56 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/01/04 21:08:10 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/01/21 17:38:40 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <fdf_struct.h>
-#include <libft.h>
+#include <libwati.h>
 #include <stdlib.h>
 
-size_t	file_size(char **file0)
+size_t	part_size(char **file0)
 {
 	char	**file;
 
@@ -24,32 +24,23 @@ size_t	file_size(char **file0)
 	return (file - file0);
 }
 
-t_coord	parts_size(char ***parts0)
+t_coord	parts_size(t_list *parts)
 {
-	char	***parts;
 	t_coord	size;
 
-	size.x = file_size(*parts0);
-	parts = parts0;
-	while (*parts)
+	if (!parts)
 	{
-		if ((int)file_size(*parts) != size.x)
-			break ;
-		parts++;
+		size.x = 0;
+		size.y = 0;
+		return (size);
 	}
-	size.y = parts - parts0;
+	size.y = 1;
+	size.x = part_size(parts->content);
+	parts = parts->next;
+	while (parts && (int)part_size(parts->content) == size.x)
+	{
+		size.y++;
+		parts = parts->next;
+	}
 	return (size);
-}
-
-void	free_parts(char ***parts0)
-{
-	char	***parts;
-
-	parts = parts0;
-	while (*parts)
-	{
-		ft_free_tab(*parts);
-		parts++;
-	}
-	free(parts0);
 }

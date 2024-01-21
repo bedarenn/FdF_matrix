@@ -6,14 +6,12 @@
 /*   By: bedarenn <bedarenn@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 14:47:35 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/01/07 19:28:27 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/01/21 18:18:34 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <fdf.h>
 #include <mlx.h>
-#include <ft_printf.h>
-#include <stdio.h>
 
 int	main(int argc, char **argv)
 {

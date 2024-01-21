@@ -6,7 +6,7 @@
 /*   By: bedarenn <bedarenn@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 17:09:54 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/01/05 19:01:06 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/01/21 17:54:56 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,51 +16,31 @@
 #include <libgnl.h>
 #include <unistd.h>
 
-#include <libft.h>
-#include <ft_printf.h>
+#include <libwati.h>
 
 #include <stdlib.h>
 
-static char	***split_file(char **file)
+static void	*void_split(void *ptr)
 {
-	char	***parts;
-	size_t	size;
-	size_t	i;
-
-	size = file_size(file);
-	parts = calloc(sizeof(char **), size + 1);
-	if (!parts)
-		return (NULL);
-	i = 0;
-	while (i < size)
-	{
-		parts[i] = ft_split(file[i], ' ');
-		if (!parts[i])
-		{
-			free_parts(parts);
-			return (0);
-		}
-		i++;
-	}
-	return (parts);
+	return (wati_split(ptr, ' '));
 }
 
-char	***get_parts(char *file_name)
+t_list	*get_parts(char *file_name)
 {
 	int		fd;
-	char	**file;
-	char	***parts;
+	t_list	*file;
+	t_list	*parts;
 
 	fd = open(file_name, O_RDONLY);
 	if (!fd)
 		return (NULL);
-	file = get_file(fd);
-	ft_printf("read done\n");
+	file = get_file_list(fd);
+	wati_printf("read done\n");
 	close(fd);
 	if (!file)
 		return (NULL);
-	parts = split_file(file);
-	ft_printf("split done\n");
-	ft_free_tab(file);
+	parts = wati_lstmap(file, void_split, free);
+	wati_lstclear(&file, free);
+	wati_printf("split done\n");
 	return (parts);
 }

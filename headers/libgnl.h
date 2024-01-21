@@ -3,15 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   libgnl.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bedarenn <bedarenn@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bedarenn <bedarenn@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 14:57:36 by bedarenn          #+#    #+#             */
-/*   Updated: 2023/11/28 17:56:56 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/01/21 17:09:40 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIBGNL_H
 # define LIBGNL_H
+
+# include <libwati.h>
 
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 32
@@ -34,6 +36,7 @@ t_buffer	*get_buffer(int fd);
 void		delete_buffer(int fd);
 
 void		print_file(int fd);
+t_list		*get_file_list(int fd);
 char		**get_file(int fd);
 
 #endif

@@ -6,13 +6,12 @@
 /*   By: bedarenn <bedarenn@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 16:21:10 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/01/06 12:54:02 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/01/21 18:05:46 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <fdf_struct.h>
 #include <stdlib.h>
-#include <ft_printf.h>
 
 t_coord	set_coord(int x, int y, int z)
 {
@@ -75,7 +74,7 @@ t_list	*lstnew_color(t_color new)
 	if (!color)
 		return (NULL);
 	*color = new;
-	list = ft_lstnew(color);
+	list = wati_lstnew(color);
 	if (!list)
 	{
 		free(color);
@@ -83,4 +82,3 @@ t_list	*lstnew_color(t_color new)
 	}
 	return (list);
 }
-

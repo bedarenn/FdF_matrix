@@ -6,7 +6,7 @@
 /*   By: bedarenn <bedarenn@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 16:11:52 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/01/07 19:26:23 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/01/21 17:09:40 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define FDF_STRUCT_H
 
 # include <stddef.h>
-# include <libft.h>
+# include <libwati.h>
 
 typedef struct s_mlx
 {

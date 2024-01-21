@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   read_file.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bedarenn <bedarenn@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bedarenn <bedarenn@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 15:23:59 by bedarenn          #+#    #+#             */
-/*   Updated: 2023/11/28 18:43:50 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/01/21 17:09:40 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <libgnl.h>
-#include <libft.h>
+#include <libwati.h>
 #include <stdlib.h>
 #include <unistd.h>
 
@@ -20,9 +20,9 @@ static int	fill_str(t_list **list, char *buffer)
 	int		l;
 	char	*s;
 
-	l = ft_strlen_set(buffer, '\n');
-	s = ft_substr(buffer, 0, l + 1);
-	ft_lstadd_back(list, ft_lstnew(s));
+	l = wati_strlen_set(buffer, '\n');
+	s = wati_substr(buffer, 0, l + 1);
+	wati_lstadd_back(list, wati_lstnew(s));
 	return (l);
 }
 
@@ -48,7 +48,7 @@ char	*read_file(t_buffer *b)
 			len = fill_str(&list, b->buffer + b->cursor);
 	}
 	b->cursor += len + 1;
-	str = ft_lstjoin(list);
-	ft_lstclear(&list, free);
+	str = wati_lstjoin(list);
+	wati_lstclear(&list, free);
 	return (str);
 }

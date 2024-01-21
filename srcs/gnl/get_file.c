@@ -6,14 +6,13 @@
 /*   By: bedarenn <bedarenn@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 17:43:38 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/01/04 19:54:41 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/01/21 17:10:06 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <libgnl.h>
-#include <libft.h>
+#include <libwati.h>
 #include <stdlib.h>
-#include <ft_printf.h>
 
 void	print_file(int fd)
 {
@@ -22,8 +21,8 @@ void	print_file(int fd)
 	str = get_next_line(fd);
 	while (str)
 	{
-		ft_putchar_fd('/', 1);
-		ft_putstr_fd(str, 1);
+		wati_putchar_fd('/', 1);
+		wati_putstr_fd(str, 1);
 		free(str);
 		str = get_next_line(fd);
 	}
@@ -37,13 +36,13 @@ static t_list	*get_line_list(int fd)
 	str = get_next_line(fd);
 	if (!str)
 		return (NULL);
-	list = ft_lstnew(str);
+	list = wati_lstnew(str);
 	if (!list)
 		free(str);
 	return (list);
 }
 
-static t_list	*get_file_list(int fd)
+t_list	*get_file_list(int fd)
 {
 	char	*str;
 	t_list	*list0;
@@ -56,10 +55,10 @@ static t_list	*get_file_list(int fd)
 	list = list0;
 	while (str)
 	{
-		list->next = ft_lstnew(str);
+		list->next = wati_lstnew(str);
 		if (!list->next)
 		{
-			ft_lstclear(&list0, free);
+			wati_lstclear(&list0, free);
 			return (NULL);
 		}
 		str = get_next_line(fd);
@@ -76,7 +75,7 @@ char	**get_file(int fd)
 	list = get_file_list(fd);
 	if (!list)
 		return (NULL);
-	strs = ft_lstsplit(list);
-	ft_lstclean(&list);
+	strs = wati_lstsplit(list);
+	wati_lstclean(&list);
 	return (strs);
 }

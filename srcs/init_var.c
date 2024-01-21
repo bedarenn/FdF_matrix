@@ -6,7 +6,7 @@
 /*   By: bedarenn <bedarenn@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/07 19:19:57 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/01/07 19:27:05 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/01/21 17:44:57 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 t_var	init_map(char *file_name)
 {
-	char		***parts;
+	t_list	*parts;
 	t_var	var;
 
 	parts = get_parts(file_name);
@@ -25,13 +25,12 @@ t_var	init_map(char *file_name)
 		return (var);
 	}
 	var.size = parts_size(parts);
-	ft_printf("x%i y%i\n", var.size.x, var.size.y);
+	wati_printf("x%i y%i\n", var.size.x, var.size.y);
 	var.map = get_map(parts, var.size);
-	if (var.map)
-		ft_printf("map created\n");
-	else
-		ft_printf("map error creation\n");
-	free_parts(parts);
+	wati_lstclear(&parts, wati_free_tab);
+	if (!var.map)
+		wati_printf("map error creation\n");
+	wati_printf("map created\n");
 	return (var);
 }
 
