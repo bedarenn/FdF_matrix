@@ -6,7 +6,7 @@
 /*   By: bedarenn <bedarenn@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/06 12:36:34 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/01/21 18:45:31 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/01/24 14:21:19 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,7 @@ t_color	get_average_color(t_color *color1, t_color *color2,
 	return (color);
 }
 
-/*get_average_color(p1.color->content, p2.color->content, (float)i / lenght).h*/
-static void	print_line_loop(t_point p1, t_point p2, t_coord v, t_data *data)
+static void	print_line_loop(t_pixel p1, t_pixel p2, t_coord v, t_data *data)
 {
 	int		i;
 	t_coord	i_coord;
@@ -70,24 +69,23 @@ static void	print_line_loop(t_point p1, t_point p2, t_coord v, t_data *data)
 	}
 }
 
-void	print_line(t_point p1, t_point p2, t_data *data, t_zoom zoom)
+void	print_line(t_point point1, t_point point2, t_data *data)
 {
 	t_coord	v;
 
-	p1.coord = set_coord(p1.coord.x * zoom.len + WIN_SIZE_X / 2 + zoom.push_v,
-			p1.coord.y * zoom.len + WIN_SIZE_Y / 2 + zoom.push_h, 0);
-	p2.coord = set_coord(p2.coord.x * zoom.len + WIN_SIZE_X / 2 + zoom.push_v,
-			p2.coord.y * zoom.len + WIN_SIZE_Y / 2 + zoom.push_h, 0);
-	v = set_coord(p2.coord.x - p1.coord.x, p2.coord.y - p1.coord.y, 0);
+	v = set_coord(point2.pixel.coord.x - point1.pixel.coord.x,
+			point2.pixel.coord.y - point1.pixel.coord.y, 0);
+	v = set_coord(point2.pixel.coord.x - point1.pixel.coord.x,
+			point2.pixel.coord.y - point1.pixel.coord.y, 0);
 	v = set_coord(v.x + (1 * wati_sig(v.x)), v.y + (1 * wati_sig(v.y)), 0);
-	print_line_loop(p1, p2, v, data);
+	print_line_loop(point1.pixel, point2.pixel, v, data);
 }
 
 void	put_pxl(t_data *data, int x, int y, int color)
 {
 	char	*dst;
 
-	if (x >= 0 && x <= WIN_SIZE_X && y >= 0 && y <= WIN_SIZE_Y)
+	if (x >= 0 && x < WIN_SIZE_X && y >= 0 && y < WIN_SIZE_Y)
 	{
 		dst = data->addr
 			+ (y * data->line_length + x * (data->bits_per_pixel / 8));

@@ -6,7 +6,7 @@
 #    By: bedarenn <bedarenn@student.42angouleme.fr  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/25 23:28:11 by bedarenn          #+#    #+#              #
-#    Updated: 2024/01/21 18:54:18 by bedarenn         ###   ########.fr        #
+#    Updated: 2024/01/23 15:37:58 by bedarenn         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,12 +40,13 @@ SRCS = \
 	custom_color.c \
 	print_line.c \
 	print_map.c \
+	get_matrix.c \
 	multiply_matrix.c \
 	key_hook.c
 
 OBJS = $(addprefix $(DIR_OBJS), $(SRCS:%.c=%.o))
 
-CFLAGS = -Wall -Wextra -Werror -g
+CFLAGS = -Wall -Wextra -Werror #-g
 IFLAGS = -I$(DIR_INCL)
 LFLAGS = -L$(DIR_LIBS) -lmlx -lXext -lX11 -lwati -lm
 
@@ -70,10 +71,10 @@ re: fclean all
 
 libwati:
 	make -C $(DIR_WATI)
-	cp $(DIR_WATI)libwati.h $(DIR_INCL)
-	cp $(DIR_WATI)libwati.a $(DIR_LIBS)
+	@cp $(DIR_WATI)libwati.h $(DIR_INCL)
+	@cp $(DIR_WATI)libwati.a $(DIR_LIBS)
 
-run: re
-	./$(NAME)
+run: fclean
+	$(CC) $(CFLAGS) $(IFLAGS) $(SRCS:%.c=$(DIR_SRCS)%.c) $(LFLAGS) -o $(NAME)
 
 .PHONY: all clean fclean re

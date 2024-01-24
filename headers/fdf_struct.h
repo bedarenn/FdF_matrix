@@ -6,7 +6,7 @@
 /*   By: bedarenn <bedarenn@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 16:11:52 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/01/21 17:09:40 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/01/24 14:18:10 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,9 @@ typedef struct s_data
 
 typedef struct s_trigo
 {
-	double	x;
-	double	y;
-	double	z;
+	long double	x;
+	long double	y;
+	long double	z;
 }	t_trigo;
 
 typedef struct s_coord
@@ -54,11 +54,17 @@ typedef struct s_color
 	unsigned int	h;
 }	t_color;
 
-typedef struct s_point
+typedef struct s_pixel
 {
 	t_coord	coord;
-	t_list	*color0;
 	t_list	*color;
+}	t_pixel;
+
+typedef struct s_point
+{
+	t_trigo	coord;
+	t_list	*color;
+	t_pixel	pixel;
 }	t_point;
 
 typedef struct s_zoom
@@ -68,6 +74,20 @@ typedef struct s_zoom
 	int		push_v;
 }	t_zoom;
 
+typedef struct s_theta
+{
+	long double	xy;
+	long double	yz;
+	long double	zx;
+}	t_theta;
+
+typedef struct s_matrix
+{
+	long double	xy[3][3];
+	long double	yz[3][3];
+	long double	zx[3][3];
+}	t_matrix;
+
 typedef struct s_var
 {
 	t_mlx	mlx;
@@ -75,6 +95,7 @@ typedef struct s_var
 	t_point	**map;
 	t_coord	size;
 	t_zoom	zoom;
+	t_theta	t;
 }	t_var;
 
 #endif

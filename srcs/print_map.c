@@ -6,13 +6,13 @@
 /*   By: bedarenn <bedarenn@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/07 18:38:13 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/01/21 18:25:51 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/01/24 10:54:35 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <fdf.h>
 
-void	print_map(t_point **map, t_coord size, t_zoom zoom, t_data *data)
+void	print_map(t_point **map, t_coord size, t_data *data)
 {
 	t_coord	i;
 
@@ -23,9 +23,9 @@ void	print_map(t_point **map, t_coord size, t_zoom zoom, t_data *data)
 		while (i.x < size.x)
 		{
 			if (i.x > 0)
-				print_line(map[i.y][i.x], map[i.y][i.x - 1], data, zoom);
+				print_line(map[i.y][i.x], map[i.y][i.x - 1], data);
 			if (i.y > 0)
-				print_line(map[i.y][i.x], map[i.y - 1][i.x], data, zoom);
+				print_line(map[i.y][i.x], map[i.y - 1][i.x], data);
 			i.x++;
 		}
 		i.y++;

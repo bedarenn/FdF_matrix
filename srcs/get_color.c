@@ -6,7 +6,7 @@
 /*   By: bedarenn <bedarenn@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 15:52:21 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/01/21 18:33:52 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/01/24 11:16:07 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,10 @@ void	change_color(t_point **map, t_coord size)
 		i.x = 0;
 		while (i.x < size.x)
 		{
-			if (!map[i.y][i.x].color->next)
-				map[i.y][i.x].color = map[i.y][i.x].color0;
+			if (!map[i.y][i.x].pixel.color->next)
+				map[i.y][i.x].pixel.color = map[i.y][i.x].color;
 			else
-				map[i.y][i.x].color = map[i.y][i.x].color->next;
+				map[i.y][i.x].pixel.color = map[i.y][i.x].pixel.color->next;
 			i.x++;
 		}
 		i.y++;

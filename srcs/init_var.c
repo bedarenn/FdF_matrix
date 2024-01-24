@@ -6,7 +6,7 @@
 /*   By: bedarenn <bedarenn@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/07 19:19:57 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/01/21 17:44:57 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/01/24 11:50:30 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,8 @@ t_var	init_map(char *file_name)
 	}
 	var.size = parts_size(parts);
 	wati_printf("x%i y%i\n", var.size.x, var.size.y);
-	var.map = get_map(parts, var.size);
+	var.zoom = init_zoom(var.size);
+	var.map = get_map(parts, var.size, var.zoom);
 	wati_lstclear(&parts, wati_free_tab);
 	if (!var.map)
 		wati_printf("map error creation\n");
@@ -62,7 +63,17 @@ t_zoom	init_zoom(t_coord size)
 		zoom.len = (double)(WIN_SIZE_Y - 1) / (size.y + 1);
 	else
 		zoom.len = (double)(WIN_SIZE_X - 1) / (size.x + 1);
-	zoom.push_h = 0;
-	zoom.push_v = 0;
+	zoom.push_h = WIN_SIZE_X / 2;
+	zoom.push_v = WIN_SIZE_Y / 2;
 	return (zoom);
+}
+
+t_theta	init_theta(void)
+{
+	t_theta	t;
+
+	t.xy = R_XY;
+	t.yz = R_YZ;
+	t.zx = R_ZX;
+	return (t);
 }
