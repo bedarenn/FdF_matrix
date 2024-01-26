@@ -6,7 +6,7 @@
 /*   By: bedarenn <bedarenn@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 16:19:53 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/01/24 14:24:39 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/01/25 13:10:42 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,9 +59,9 @@ t_point	get_point(char *str, t_coord i, t_coord size, t_zoom zoom)
 
 	point.coord = set_trigo((i.x - size.x / 2) * zoom.len,
 			(i.y - size.y / 2) * zoom.len,
-			wati_atoi(str) * zoom.len * HIGH);
+			wati_atoi(str) * zoom.len);
 	point.color = NULL;
-	wati_lstadd_back(&point.color, lstnew_color(set_color_hex(0x00ffffff)));
+	wati_lstadd_back(&point.color, lstnew_color(set_color_hex(0xffffffff)));
 	wati_lstadd_back(&point.color, lstnew_color(get_color(skip_nb(str))));
 	wati_lstadd_back(&point.color,
 		lstnew_color(set_color_height(point.coord.z)));

@@ -6,7 +6,7 @@
 /*   By: bedarenn <bedarenn@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 16:11:52 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/01/24 14:18:10 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/01/25 13:03:14 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,16 +20,8 @@ typedef struct s_mlx
 {
 	void	*ptr;
 	void	*win;
-}	t_mlx;
-
-typedef struct s_data
-{
 	void	*img;
-	char	*addr;
-	int		bits_per_pixel;
-	int		line_length;
-	int		endian;
-}	t_data;
+}	t_mlx;
 
 typedef struct s_trigo
 {
@@ -72,6 +64,8 @@ typedef struct s_zoom
 	double	len;
 	int		push_h;
 	int		push_v;
+	double	zoom;
+	double	high;
 }	t_zoom;
 
 typedef struct s_theta
@@ -91,7 +85,6 @@ typedef struct s_matrix
 typedef struct s_var
 {
 	t_mlx	mlx;
-	t_data	data;
 	t_point	**map;
 	t_coord	size;
 	t_zoom	zoom;

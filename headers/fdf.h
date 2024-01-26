@@ -6,7 +6,7 @@
 /*   By: bedarenn <bedarenn@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 14:49:41 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/01/24 14:20:47 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/01/26 14:10:18 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@
 /*    init_var    */
 t_var	init_map(char *file_name);
 t_mlx	init_mlx(char *title);
-t_data	init_img(t_mlx mlx, int width, int height);
 t_zoom	init_zoom(t_coord size);
 t_theta	init_theta(void);
 
@@ -49,6 +48,7 @@ void	print_point(t_point point);
 /*   get_color    */
 t_color	get_color(char *str);
 void	change_color(t_point **map, t_coord size);
+t_color	get_average_color(t_color *color1, t_color *color2, float percent);
 
 /*    custom_color    */
 char	*skip_nb(char *str);
@@ -63,21 +63,23 @@ void	matrix_iso(long double matrix[3][3]);
 /*    multiply_matrix    */
 void	mutiply_map(t_point **map, t_coord size, t_theta t, t_zoom zoom);
 t_trigo	multiply_matrix(t_trigo m, long double matrix[3][3]);
-t_point	apply_zoom(t_point p, t_trigo m, t_zoom zoom);
+t_coord	apply_zoom(t_trigo m, t_zoom zoom);
+int		in_window(int x, int y);
 
 /*    print_line    */
-void	put_pxl(t_data *data, int x, int y, int color);
-void	print_line(t_point p1, t_point p2, t_data *data);
+void	print_line(t_point p1, t_point p2, t_mlx mlx);
+void	put_pixel(t_mlx mlx, int x, int y, t_color color);
 
 /*    print_map    */
-void	print_map(t_point **map, t_coord size, t_data *data);
-void	clear_data(t_data *data);
+void	print_data(t_var *var);
+void	print_map(t_point **map, t_coord size, t_mlx mlx);
+void	clear_data(t_mlx mlx);
 
 /*    key_hook    */
-int		key_hook(int keycode, t_var *var);
+int		key_hook(int keycode, void *var);
+int		key_letter(int keycode, t_var *var);
 int		key_arrow(int keycode, t_var *var);
-int		key_wasd(int keycode, t_var *var);
+int		key_other(int keycode, t_var *var);
 int		win_close(t_var *var);
-void	print_data(t_var var);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: bedarenn <bedarenn@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/07 19:19:57 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/01/24 11:50:30 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/01/25 13:10:30 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,17 +42,21 @@ t_mlx	init_mlx(char *title)
 	mlx.ptr = mlx_init();
 	if (mlx.ptr)
 		mlx.win = mlx_new_window(mlx.ptr, WIN_SIZE_X, WIN_SIZE_Y, title);
+	else
+		return (mlx);
+	if (mlx.win)
+		mlx.img = mlx_new_image(mlx.ptr, WIN_SIZE_X, WIN_SIZE_Y);
+	else
+	{
+		mlx_destroy_display(mlx.ptr);
+		return (mlx);
+	}
+	if (!mlx.img)
+	{
+		mlx_destroy_window(mlx.ptr, mlx.win);
+		mlx_destroy_display(mlx.ptr);
+	}
 	return (mlx);
-}
-
-t_data	init_img(t_mlx mlx, int width, int height)
-{
-	t_data		img;
-
-	img.img = mlx_new_image(mlx.ptr, width, height);
-	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length,
-			&img.endian);
-	return (img);
 }
 
 t_zoom	init_zoom(t_coord size)
@@ -65,6 +69,8 @@ t_zoom	init_zoom(t_coord size)
 		zoom.len = (double)(WIN_SIZE_X - 1) / (size.x + 1);
 	zoom.push_h = WIN_SIZE_X / 2;
 	zoom.push_v = WIN_SIZE_Y / 2;
+	zoom.high = HIGH;
+	zoom.zoom = ZOOM;
 	return (zoom);
 }
 

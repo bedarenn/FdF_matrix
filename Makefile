@@ -6,7 +6,7 @@
 #    By: bedarenn <bedarenn@student.42angouleme.fr  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/25 23:28:11 by bedarenn          #+#    #+#              #
-#    Updated: 2024/01/23 15:37:58 by bedarenn         ###   ########.fr        #
+#    Updated: 2024/01/24 19:38:03 by bedarenn         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -48,14 +48,14 @@ OBJS = $(addprefix $(DIR_OBJS), $(SRCS:%.c=%.o))
 
 CFLAGS = -Wall -Wextra -Werror #-g
 IFLAGS = -I$(DIR_INCL)
-LFLAGS = -L$(DIR_LIBS) -lmlx -lXext -lX11 -lwati -lm
+LFLAGS = -L$(DIR_LIBS) -lSDL2 -lXext -lX11 -lwati -lm
 
 NAME = fdf
 
 all: libwati $(NAME)
 
 $(NAME): $(OBJS)
-	$(CC) $^ $(LFLAGS) -o $@
+	$(CC) $^ $(DIR_LIBS)libmlx.so $(LFLAGS) -o $@
 
 $(DIR_OBJS)%.o: $(DIR_SRCS)%.c
 	@mkdir -p $(DIR_OBJS) $(DIR_OBJS)/$(DIR_GNL)

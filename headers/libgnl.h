@@ -6,7 +6,7 @@
 /*   By: bedarenn <bedarenn@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 14:57:36 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/01/21 17:09:40 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/01/25 12:44:23 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include <libwati.h>
 
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 32
+#  define BUFFER_SIZE 1000
 # endif
 
 typedef struct s_buffer

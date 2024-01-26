@@ -1,139 +1,378 @@
-/*
-** mlx.h for MinilibX in 
-** 
-** Made by Charlie Root
-** Login   <ol@epitech.net>
-** 
-** Started on  Mon Jul 31 16:37:50 2000 Charlie Root
-** Last update Tue May 15 16:23:28 2007 Olivier Crouzet
-*/
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   mlx.h                                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: bedarenn <bedarenn@student.42angouleme.fr  +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/10/04 16:56:35 by maldavid          #+#    #+#             */
+/*   Updated: 2024/01/26 13:49:28 by bedarenn         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-/*
-**   MinilibX -  Please report bugs
-*/
+// MacroLibX official repo https://github.com/seekrs/MacroLibX
+// MacroLibX official website https://macrolibx.kbz8.me/
 
+#ifndef __MACRO_LIB_X_H__
+#define __MACRO_LIB_X_H__
 
-/*
-** FR msg - FR msg - FR msg
-**
-** La MinilibX utilise 2 librairies supplementaires qu'il
-**      est necessaire de rajouter a la compilation :
-**   -lmlx -lXext -lX11
-**
-** La MinilibX permet le chargement des images de type Xpm.
-** Notez que cette implementation est incomplete.
-** Merci de communiquer tout probleme de chargement d'image
-** de ce type.
-*/
+#include "mlx_profile.h"
 
+#ifdef __cplusplus
+extern "C" {
+#endif
 
-#ifndef MLX_H
-
-#define	MLX_H
-
-
-void	*mlx_init();
-/*
-**  needed before everything else.
-**  return (void *)0 if failed
-*/
+typedef enum
+{
+	MLX_KEYDOWN = 0,
+	MLX_KEYUP = 1,
+	MLX_MOUSEDOWN = 2,
+	MLX_MOUSEUP = 3,
+	MLX_MOUSEWHEEL = 4,
+	MLX_WINDOW_EVENT = 5
+} mlx_event_type;
 
 
-/*
-** Basic actions
-*/
-
-void	*mlx_new_window(void *mlx_ptr, int size_x, int size_y, char *title);
-/*
-**  return void *0 if failed
-*/
-int	mlx_clear_window(void *mlx_ptr, void *win_ptr);
-int	mlx_pixel_put(void *mlx_ptr, void *win_ptr, int x, int y, int color);
-/*
-**  origin for x & y is top lewati corner of the window
-**  y down is positive
-**  color is 0x00RRGGBB
-*/
+/**
+ * @brief			Initializes the MLX internal application
+ *
+ * @return (void*)	An opaque pointer to the internal MLX application or NULL (0x0) in case of error
+ */
+MLX_API void* mlx_init();
 
 
-/*
-** Image stuff
-*/
-
-void	*mlx_new_image(void *mlx_ptr,int width,int height);
-/*
-**  return void *0 if failed
-**  obsolete : image2 data is stored using bit planes
-**  void	*mlx_new_image2(void *mlx_ptr,int width,int height);
-*/
-char	*mlx_get_data_addr(void *img_ptr, int *bits_per_pixel,
-			   int *size_line, int *endian);
-/*
-**  endian : 0 = sever X is little endian, 1 = big endian
-**  for mlx_new_image2, 2nd arg of mlx_get_data_addr is number_of_planes
-*/
-int	mlx_put_image_to_window(void *mlx_ptr, void *win_ptr, void *img_ptr,
-				int x, int y);
-int	mlx_get_color_value(void *mlx_ptr, int color);
+/**
+ * @brief			Creates a new window
+ *
+ * @param mlx		Internal MLX application
+ * @param w			Width of the window
+ * @param h			Height of the window
+ * @param title		Title of the window
+ *
+ * @return (void*)	An opaque pointer to the internal MLX window or NULL (0x0) in case of error
+ */
+MLX_API void* mlx_new_window(void* mlx, int w, int h, const char* title);
 
 
-/*
-** dealing with Events
-*/
-
-int	mlx_mouse_hook (void *win_ptr, int (*funct_ptr)(), void *param);
-int	mlx_key_hook (void *win_ptr, int (*funct_ptr)(), void *param);
-int	mlx_expose_hook (void *win_ptr, int (*funct_ptr)(), void *param);
-
-int	mlx_loop_hook (void *mlx_ptr, int (*funct_ptr)(), void *param);
-int	mlx_loop (void *mlx_ptr);
-int mlx_loop_end (void *mlx_ptr);
-
-/*
-**  hook funct are called as follow :
-**
-**   expose_hook(void *param);
-**   key_hook(int keycode, void *param);
-**   mouse_hook(int button, int x,int y, void *param);
-**   loop_hook(void *param);
-**
-*/
+/**
+ * @brief			Gives a function to be executed at each loop turn
+ *
+ * @param mlx		Internal MLX application
+ * @param f			The function
+ * @param param		Param to give to the function passed
+ *
+ * @return (int)	Always return 0, made this to copy the behaviour of the original MLX
+ */
+MLX_API int mlx_loop_hook(void* mlx, int (*f)(void*), void* param);
 
 
-/*
-**  Usually asked...
-*/
+/**
+ * @brief			Starts the internal main loop
+ *
+ * @param mlx		Internal MLX application
+ *
+ * @return (int)	Always return 0, made this to copy the behaviour of the original MLX
+ */
+MLX_API int mlx_loop(void* mlx);
 
-int	mlx_string_put(void *mlx_ptr, void *win_ptr, int x, int y, int color,
-		       char *string);
-void	mlx_set_font(void *mlx_ptr, void *win_ptr, char *name);
-void	*mlx_xpm_to_image(void *mlx_ptr, char **xpm_data,
-			  int *width, int *height);
-void	*mlx_xpm_file_to_image(void *mlx_ptr, char *filename,
-			       int *width, int *height);
-int	mlx_destroy_window(void *mlx_ptr, void *win_ptr);
 
-int	mlx_destroy_image(void *mlx_ptr, void *img_ptr);
+/**
+ * @brief			Ends the internal main loop
+ *
+ * @param mlx		Internal MLX application
+ *
+ * @return (int)	Always return 0, made this to copy the behaviour of the original MLX
+ */
+MLX_API int mlx_loop_end(void* mlx);
 
-int	mlx_destroy_display(void *mlx_ptr);
 
-/*
-**  generic hook system for all events, and minilibX functions that
-**    can be hooked. Some macro and defines from X11/X.h are needed here.
-*/
+/**
+ * @brief			Shows mouse cursor
+ *
+ * @return (int)	Always return 0, made this to copy the behaviour of the original MLX
+ */
+MLX_API int mlx_mouse_show();
 
-int	mlx_hook(void *win_ptr, int x_event, int x_mask,
-                 int (*funct)(), void *param);
 
-int	mlx_do_key_autorepeatoff(void *mlx_ptr);
-int	mlx_do_key_autorepeaton(void *mlx_ptr);
-int	mlx_do_sync(void *mlx_ptr);
+/**
+ * @brief			Hides mouse cursor
+ *
+ * @return (int)	Always return 0, made this to copy the behaviour of the original MLX
+ */
+MLX_API int mlx_mouse_hide();
 
-int	mlx_mouse_get_pos(void *mlx_ptr, void *win_ptr, int *x, int *y);
-int	mlx_mouse_move(void *mlx_ptr, void *win_ptr, int x, int y);
-int	mlx_mouse_hide(void *mlx_ptr, void *win_ptr);
-int	mlx_mouse_show(void *mlx_ptr, void *win_ptr);
 
-int	mlx_get_screen_size(void *mlx_ptr, int *sizex, int *sizey);
+/**
+ * @brief			Moves cursor to givent position
+ *
+ * @param mlx		Internal MLX application
+ * @param win		Internal window from which cursor moves
+ * @param x			X coordinate
+ * @param y			Y coordinate
+ *
+ * @return (int)	Always return 0, made this to copy the behaviour of the original MLX
+ */
+MLX_API int mlx_mouse_move(void* mlx, void* win, int x, int y);
 
-#endif /* MLX_H */
+
+/**
+ * @brief			Get cursor's position
+ *
+ * @param mlx		Internal MLX application
+ * @param x			Get x coordinate
+ * @param y			Get y coordinate
+ *
+ * @return (int)	Always return 0, made this to copy the behaviour of the original MLX
+ */
+MLX_API int mlx_mouse_get_pos(void* mlx, int* x, int* y);
+
+
+/**
+ * @brief			Gives a function to be executed on event type
+ *
+ * @param mlx		Internal MLX application
+ * @param win		Internal window
+ * @param event		Event type (see union on top of this file)
+ * @param f			Function to be executed
+ * @param param		Parameter given to the function
+ *
+ * @return (int)	Always return 0, made this to copy the behaviour of the original MLX
+ */
+MLX_API int mlx_on_event(void* mlx, void* win, mlx_event_type event, int (*f)(int, void*), void* param);
+
+
+/**
+ * @brief			Put a pixel in the window
+ *
+ * @param mlx		Internal MLX application
+ * @param win		Internal window
+ * @param x			X coordinate
+ * @param y			Y coordinate
+ * @param color		Color of the pixel (coded on 4 bytes in an int, 0xAARRGGBB)
+ *
+ * Note : If your're reading pixel colors from an image, don't forget to shift them 
+ * one byte to the right as image pixels are encoded as 0xRRGGBBAA and pixel put takes 0xAARRGGBB.
+ * 
+ * @return (int)	Always return 0, made this to copy the behaviour of the original MLX
+ */
+MLX_API int mlx_pixel_put(void* mlx, void* win, int x, int y, int color);
+
+
+/**
+ * @brief			Create a new empty image
+ *
+ * @param mlx		Internal MLX application
+ * @param width		Width of the image
+ * @param height	Height of the image
+ *
+ * @return (void*)	An opaque pointer to the internal image or NULL (0x0) in case of error
+ */
+MLX_API void* mlx_new_image(void* mlx, int width, int height);
+
+
+/**
+ * @brief					Get image pixel data
+ *
+ * @param mlx				Internal MLX application
+ * @param img				Internal image
+ * @param x					X coordinate in the image
+ * @param y					Y coordinate in the image
+ *
+ * @return (int)			Return the pixel data
+ *
+ * /!\ If you run into glitches when writing or reading pixels from images /!\
+ * You need to add IMAGES_OPTIMIZED=false to your make mlx command
+ * ```
+ * 	~ git clone https://github.com/seekrs/MacroLibX.git
+ * 	~ cd MacroLibX
+ * 	~ make IMAGES_OPTIMIZED=false
+ * ```
+ */
+MLX_API int mlx_get_image_pixel(void* mlx, void* img, int x, int y);
+
+
+/**
+ * @brief					Set image pixel data
+ *
+ * @param mlx				Internal MLX application
+ * @param img				Internal image
+ * @param x					X coordinate in the image
+ * @param y					Y coordinate in the image
+ * @param color				Color of the pixel to set
+ *
+ * @return (void)
+ *
+ * /!\ If you run into glitches when writing or reading pixels from images /!\
+ * You need to add IMAGES_OPTIMIZED=false to your make mlx command
+ * ```
+ * 	~ git clone https://github.com/seekrs/MacroLibX.git
+ * 	~ cd MacroLibX
+ * 	~ make IMAGES_OPTIMIZED=false
+ * ```
+ */
+MLX_API void mlx_set_image_pixel(void* mlx, void* img, int x, int y, int color);
+
+
+/**
+ * @brief			Put image to the given window
+ *
+ * @param mlx		Internal MLX application
+ * @param win		Internal window
+ * @param img		Internal image
+ * @param x			X coordinate
+ * @param y			Y coordinate
+ *
+ * @return (int)	Always return 0, made this to copy the behaviour of the original MLX
+ */
+MLX_API int mlx_put_image_to_window(void* mlx, void* win, void* img, int x, int y);
+
+
+/**
+ * @brief			Destroys internal image
+ *
+ * @param mlx		Internal MLX application
+ * @param img		Internal image
+ *
+ * @return (int)	Always return 0, made this to copy the behaviour of the original MLX
+ */
+MLX_API int mlx_destroy_image(void* mlx, void* img);
+
+
+/**
+ * @brief			Create a new image from a png file
+ *
+ * @param mlx		Internal MLX application
+ * @param filename	Path to the png file
+ * @param width		Get the width of the image
+ * @param heigth	Get the height of the image
+ *
+ * @return (void*)	An opaque pointer to the internal image or NULL (0x0) in case of error
+ */
+MLX_API void* mlx_png_file_to_image(void* mlx, char* filename, int* width, int* height);
+
+
+/**
+ * @brief			Create a new image from a jpg file
+ *
+ * @param mlx		Internal MLX application
+ * @param filename	Path to the jpg file
+ * @param width		Get the width of the image
+ * @param heigth	Get the height of the image
+ *
+ * @return (void*)	An opaque pointer to the internal image or NULL (0x0) in case of error
+ */
+MLX_API void* mlx_jpg_file_to_image(void* mlx, char* filename, int* width, int* height);
+
+
+/**
+ * @brief			Create a new image from a bmp file
+ *
+ * @param mlx		Internal MLX application
+ * @param filename	Path to the bmp file
+ * @param width		Get the width of the image
+ * @param heigth	Get the height of the image
+ *
+ * @return (void*)	An opaque pointer to the internal image or NULL (0x0) in case of error
+ */
+MLX_API void* mlx_bmp_file_to_image(void* mlx, char* filename, int* width, int* height);
+
+
+/**
+ * @brief			Put text in given window
+ *
+ * @param mlx		Internal MLX application
+ * @param win		Internal window
+ * @param x			X coordinate
+ * @param y			Y coordinate
+ * @param color		Color of the pixel (coded on 4 bytes in an int, 0xAARRGGBB)
+ * @param str		Text to put
+ *
+ * @return (int)	Always return 0, made this to copy the behaviour of the original MLX
+ */
+MLX_API int mlx_string_put(void* mlx, void* win, int x, int y, int color, char* str);
+
+
+/**
+ * @brief			Loads a font to be used by `mlx_string_put`
+ *
+ * @param mlx		Internal MLX application
+ * @param win		Internal window
+ * @param filepath	Filepath to the font or "default" to reset to the embedded font
+ *
+ * @return (void)	
+ */
+MLX_API void mlx_set_font(void* mlx, void* win, char* filepath);
+
+
+/**
+ * @brief			Loads a font to be used by `mlx_string_put` and scales it
+ *
+ * @param mlx		Internal MLX application
+ * @param win		Internal window
+ * @param filepath	Filepath to the font or "default" to reset to the embedded font
+ * @param scale		Scale to apply to the font
+ *
+ * @return (void)	
+ */
+MLX_API void mlx_set_font_scale(void* mlx, void* win, char* filepath, float scale);
+
+
+/**
+ * @brief			Clears the given window (resets all rendered data)
+ *
+ * @param mlx		Internal MLX application
+ * @param win		Internal window
+ *
+ * @return (int)	Always return 0, made this to copy the behaviour of the original MLX
+ */
+MLX_API int mlx_clear_window(void* mlx, void* win);
+
+
+/**
+ * @brief			Destroys internal window
+ *
+ * @param mlx		Internal MLX application
+ * @param win		Internal window
+ *
+ * @return (int)	Always return 0, made this to copy the behaviour of the original MLX
+ */
+MLX_API int mlx_destroy_window(void* mlx, void* win);
+
+/**
+ * @brief			Destroy internal MLX application
+ *
+ * @param mlx		Internal MLX application
+ *
+ * @return (int)	Always return 0, made this to copy the behaviour of the original MLX
+ */
+MLX_API int mlx_destroy_display(void* mlx);
+
+
+/**
+ * @brief			Get the size of the screen the given window is on
+ *
+ * @param mlx		Internal MLX application
+ * @param win		Internal window
+ * @param w			Get width size
+ * @param h			Get height size
+ *
+ * @return (int)	Always return 0, made this to copy the behaviour of the original MLX
+ */
+MLX_API int mlx_get_screens_size(void* mlx, void* win, int* w, int* h);
+
+
+/**
+ * @brief			Caps the FPS
+ *
+ * @param mlx		Internal MLX application
+ * @param fps		The FPS cap
+ *
+ * @return (int)	Always return 0
+ */
+MLX_API int mlx_set_fps_goal(void* mlx, int fps);
+
+#ifdef __cplusplus
+}
+#endif
+
+#endif

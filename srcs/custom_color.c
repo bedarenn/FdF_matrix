@@ -6,7 +6,7 @@
 /*   By: bedarenn <bedarenn@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/21 18:33:44 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/01/21 18:47:00 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/01/25 09:03:27 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,22 +32,22 @@ t_color	set_color_height(int height)
 
 	height_color = height - HEIGHT_ABYSS;
 	if (height < HEIGHT_ABYSS - (HEIGHT_MOUNTAIN - HEIGHT_ABYSS))
-		color = set_color(0, 0, 0, 0);
+		color = set_color(255, 0, 0, 0);
 	else if (height <= HEIGHT_ABYSS)
-		color = set_color(0, 0, 0,
+		color = set_color(255, 0, 0,
 				255 - (255 * (height_color)
 					/ -(HEIGHT_MOUNTAIN - HEIGHT_ABYSS)));
 	else if (height < HEIGHT_ABYSS + ((HEIGHT_MOUNTAIN - HEIGHT_ABYSS) / 2))
-		color = set_color(0, 0, 64 + (192 * (height_color
+		color = set_color(255, 0, 64 + (192 * (height_color
 						/ ((HEIGHT_MOUNTAIN - HEIGHT_ABYSS) / 2))), 0);
 	else if (height <= HEIGHT_MOUNTAIN)
-		color = set_color(0, 255 * ((height_color
+		color = set_color(255, 255 * ((height_color
 						- ((HEIGHT_MOUNTAIN - HEIGHT_ABYSS) / 2))
 					/ ((HEIGHT_MOUNTAIN - HEIGHT_ABYSS) / 2)),
 				255, 255 * ((height_color
 						- ((HEIGHT_MOUNTAIN - HEIGHT_ABYSS) / 2))
 					/ ((HEIGHT_MOUNTAIN - HEIGHT_ABYSS) / 2)));
 	else
-		color = set_color(0, 255, 255, 255);
+		color = set_color(255, 255, 255, 255);
 	return (color);
 }

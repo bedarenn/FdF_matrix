@@ -6,12 +6,14 @@
 /*   By: bedarenn <bedarenn@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/06 12:36:34 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/01/24 14:21:19 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/01/26 14:28:31 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <fdf.h>
 #include <libwati.h>
+#include <mlx.h>
+#include <stdio.h>
 
 static int	print_line_condition(t_coord v, int i, t_coord *i_coord)
 {
@@ -30,65 +32,46 @@ static int	print_line_condition(t_coord v, int i, t_coord *i_coord)
 	return (0);
 }
 
-t_color	get_average_color(t_color *color1, t_color *color2,
-	float percent)
-{
-	t_color			color;
-	float			rpercent;
-
-	rpercent = 1 - percent;
-	color.t = color1->t * rpercent + color2->t * percent;
-	color.r = color1->r * rpercent + color2->r * percent;
-	color.g = color1->g * rpercent + color2->g * percent;
-	color.b = color1->b * rpercent + color2->b * percent;
-	color = set_color(color.t, color.r, color.g, color.b);
-	return (color);
-}
-
-static void	print_line_loop(t_pixel p1, t_pixel p2, t_coord v, t_data *data)
+static void	print_line_loop(t_pixel p1, t_pixel p2, t_coord v, t_mlx mlx)
 {
 	int		i;
 	t_coord	i_coord;
-	int		lenght;
+	long	lenght;
 
 	lenght = wati_abs(v.x) * wati_abs(v.y);
 	i_coord = set_coord(0, 0, 0);
 	i = 0;
-	put_pxl(data, p1.coord.x + (i_coord.x * wati_sig(v.x)),
-		p1.coord.y + (i_coord.y * wati_sig(v.y)),
-		get_average_color(p1.color->content,
-			p2.color->content, 0).h);
+	put_pixel(mlx, p1.coord.x + (i_coord.x * wati_sig(v.x)), p1.coord.y
+		+ (i_coord.y * wati_sig(v.y)), get_average_color(p1.color->content,
+			p2.color->content, (float)i / lenght));
 	while (i < lenght)
 	{
 		if (print_line_condition(v, i, &i_coord))
-			put_pxl(data, p1.coord.x + (i_coord.x * wati_sig(v.x)),
-				p1.coord.y + (i_coord.y * wati_sig(v.y)),
-				get_average_color(p1.color->content,
-					p2.color->content, (float)i / lenght).h);
+			put_pixel(mlx, p1.coord.x + (i_coord.x * wati_sig(v.x)), p1.coord.y
+				+ (i_coord.y * wati_sig(v.y)),
+				get_average_color(p1.color->content, p2.color->content, (float)i
+					/ lenght));
 		i++;
 	}
 }
 
-void	print_line(t_point point1, t_point point2, t_data *data)
+void	print_line(t_point p1, t_point p2, t_mlx mlx)
 {
 	t_coord	v;
 
-	v = set_coord(point2.pixel.coord.x - point1.pixel.coord.x,
-			point2.pixel.coord.y - point1.pixel.coord.y, 0);
-	v = set_coord(point2.pixel.coord.x - point1.pixel.coord.x,
-			point2.pixel.coord.y - point1.pixel.coord.y, 0);
+	if (!in_window(p1.pixel.coord.x, p1.pixel.coord.y)
+		&& !in_window(p2.pixel.coord.x, p2.pixel.coord.y))
+		return ;
+	v = set_coord(p2.pixel.coord.x - p1.pixel.coord.x,
+			p2.pixel.coord.y - p1.pixel.coord.y, 0);
+	v = set_coord(p2.pixel.coord.x - p1.pixel.coord.x,
+			p2.pixel.coord.y - p1.pixel.coord.y, 0);
 	v = set_coord(v.x + (1 * wati_sig(v.x)), v.y + (1 * wati_sig(v.y)), 0);
-	print_line_loop(point1.pixel, point2.pixel, v, data);
+	print_line_loop(p1.pixel, p2.pixel, v, mlx);
 }
 
-void	put_pxl(t_data *data, int x, int y, int color)
+void	put_pixel(t_mlx mlx, int x, int y, t_color color)
 {
-	char	*dst;
-
-	if (x >= 0 && x < WIN_SIZE_X && y >= 0 && y < WIN_SIZE_Y)
-	{
-		dst = data->addr
-			+ (y * data->line_length + x * (data->bits_per_pixel / 8));
-		*(unsigned int *)dst = color;
-	}
+	if (in_window(x, y))
+		mlx_set_image_pixel(mlx.ptr, mlx.img, x, y, color.h);
 }
