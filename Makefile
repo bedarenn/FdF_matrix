@@ -6,7 +6,7 @@
 #    By: bedarenn <bedarenn@student.42angouleme.fr  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/25 23:28:11 by bedarenn          #+#    #+#              #
-#    Updated: 2024/01/24 19:38:03 by bedarenn         ###   ########.fr        #
+#    Updated: 2024/01/26 16:06:58 by bedarenn         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -62,19 +62,21 @@ $(DIR_OBJS)%.o: $(DIR_SRCS)%.c
 	$(CC) $(CFLAGS) $(IFLAGS) -c $^ -o $@ 
 
 clean:
+	make -C $(DIR_WATI) clean
 	rm -rf $(DIR_OBJS)
 
 fclean: clean
-	rm -f $(NAME)
+	make -C $(DIR_WATI) fclean
+	rm -f $(NAME) $(DIR_LIBS)libwati.a
 
 re: fclean all
 
 libwati:
-	make -C $(DIR_WATI)
+	make -C $(DIR_WATI) -j
 	@cp $(DIR_WATI)libwati.h $(DIR_INCL)
 	@cp $(DIR_WATI)libwati.a $(DIR_LIBS)
 
-run: fclean
-	$(CC) $(CFLAGS) $(IFLAGS) $(SRCS:%.c=$(DIR_SRCS)%.c) $(LFLAGS) -o $(NAME)
+run: fclean libwati
+	$(CC) $(CFLAGS) $(IFLAGS) $(SRCS:%.c=$(DIR_SRCS)%.c) $(DIR_LIBS)libmlx.so $(LFLAGS) -o $(NAME)
 
 .PHONY: all clean fclean re
