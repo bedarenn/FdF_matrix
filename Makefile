@@ -6,7 +6,7 @@
 #    By: bedarenn <bedarenn@student.42angouleme.fr  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/25 23:28:11 by bedarenn          #+#    #+#              #
-#    Updated: 2024/01/26 16:06:58 by bedarenn         ###   ########.fr        #
+#    Updated: 2024/02/09 12:23:08 by bedarenn         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,7 +41,8 @@ SRCS = \
 	print_line.c \
 	print_map.c \
 	get_matrix.c \
-	multiply_matrix.c \
+	matrix_apply.c \
+	matrix_multiply.c \
 	key_hook.c
 
 OBJS = $(addprefix $(DIR_OBJS), $(SRCS:%.c=%.o))

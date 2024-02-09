@@ -6,7 +6,7 @@
 /*   By: bedarenn <bedarenn@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/07 19:19:57 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/01/25 13:10:30 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/01/31 14:09:51 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ t_zoom	init_zoom(t_coord size)
 		zoom.len = (double)(WIN_SIZE_Y - 1) / (size.y + 1);
 	else
 		zoom.len = (double)(WIN_SIZE_X - 1) / (size.x + 1);
+	zoom.len *= 0.7;
 	zoom.push_h = WIN_SIZE_X / 2;
 	zoom.push_v = WIN_SIZE_Y / 2;
 	zoom.high = HIGH;

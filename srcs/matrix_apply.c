@@ -1,26 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   multiply_matrix.c                                  :+:      :+:    :+:   */
+/*   matrix_apply.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bedarenn <bedarenn@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/21 18:49:54 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/01/26 14:27:24 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/02/06 13:03:40 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <fdf.h>
 
-void	mutiply_map(t_point **map, t_coord size, t_theta t, t_zoom zoom)
+void	apply_to_map(t_point **map, t_coord size, t_theta t, t_zoom zoom)
 {
 	t_coord		i;
 	t_trigo		m;
 	t_matrix	matrix;
+	long double	matrix_f[3][3];
 
 	matrix_xy(matrix.xy, t.xy / 180 * PI);
 	matrix_yz(matrix.yz, t.yz / 180 * PI);
 	matrix_zx(matrix.zx, t.zx / 180 * PI);
+	matrix_multiply(matrix_f, matrix.yz, matrix.zx);
 	i.y = 0;
 	while (i.y < size.y)
 	{
@@ -30,22 +32,13 @@ void	mutiply_map(t_point **map, t_coord size, t_theta t, t_zoom zoom)
 			m = map[i.y][i.x].coord;
 			m.z *= zoom.high;
 			m = set_trigo(m.x * zoom.zoom, m.y * zoom.zoom, m.z * zoom.zoom);
-			m = multiply_matrix(m, matrix.xy);
-			m = multiply_matrix(m, matrix.yz);
-			m = multiply_matrix(m, matrix.zx);
+			m = vector_multiply(m, matrix.xy);
+			m = vector_multiply(m, matrix_f);
 			map[i.y][i.x].pixel.coord = apply_zoom(m, zoom);
 			i.x++;
 		}
 		i.y++;
 	}
-}
-
-t_trigo	multiply_matrix(t_trigo m, long double matrix[3][3])
-{
-	m = set_trigo(m.x * matrix[0][0] + m.y * matrix[0][1] + m.z * matrix[0][2],
-			m.x * matrix[1][0] + m.y * matrix[1][1] + m.z * matrix[1][2], m.x
-			* matrix[2][0] + m.y * matrix[2][1] + m.z * matrix[2][2]);
-	return (m);
 }
 
 t_coord	apply_zoom(t_trigo m, t_zoom zoom)

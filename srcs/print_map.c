@@ -6,7 +6,7 @@
 /*   By: bedarenn <bedarenn@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/07 18:38:13 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/01/26 13:22:40 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/01/31 11:50:42 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 void	print_data(t_var *var)
 {
-	mutiply_map(var->map, var->size, var->t, var->zoom);
+	apply_to_map(var->map, var->size, var->t, var->zoom);
 	clear_data(var->mlx);
 	print_map(var->map, var->size, var->mlx);
 	mlx_put_image_to_window(var->mlx.ptr, var->mlx.win, var->mlx.img, 0, 0);

@@ -6,7 +6,7 @@
 /*   By: bedarenn <bedarenn@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 19:11:49 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/01/26 14:20:03 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/02/09 12:16:50 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include <fdf_keymap.h>
 #include <mlx.h>
 #include <stdlib.h>
+#include <stdio.h>
 
 int	key_hook(int keycode, void *var)
 {
@@ -31,6 +32,18 @@ int	key_hook(int keycode, void *var)
 
 int	key_other(int keycode, t_var *var)
 {
+	if (var->t.xy < -180)
+		var->t.xy += 360;
+	else if (var->t.xy > 180)
+		var->t.xy -= 360;
+	if (var->t.yz < -180)
+		var->t.yz += 360;
+	else if (var->t.yz > 180)
+		var->t.yz -= 360;
+	if (var->t.zx < -180)
+		var->t.zx += 360;
+	else if (var->t.zx > 180)
+		var->t.zx -= 360;
 	if (keycode == KEY_C)
 	{
 		change_color(var->map, var->size);
@@ -38,6 +51,8 @@ int	key_other(int keycode, t_var *var)
 		print_map(var->map, var->size, var->mlx);
 		mlx_put_image_to_window(var->mlx.ptr, var->mlx.win, var->mlx.img, 0, 0);
 	}
+	if (keycode == KEY_X)
+		printf("xy%Lf yz%Lf zx%Lf\n", var->t.xy, var->t.yz, var->t.zx);
 	else
 		return (0);
 	return (1);

@@ -6,7 +6,7 @@
 /*   By: bedarenn <bedarenn@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/21 17:58:07 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/01/25 13:00:06 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/01/31 13:23:28 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # define KEY_ESCAPE 41
 
 # define KEY_C 6
+# define KEY_X 27
 # define KEY_A 4
 # define KEY_W 26
 # define KEY_D 7

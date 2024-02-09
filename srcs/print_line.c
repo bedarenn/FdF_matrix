@@ -6,7 +6,7 @@
 /*   By: bedarenn <bedarenn@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/06 12:36:34 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/01/26 14:28:31 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/02/09 12:13:50 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include <libwati.h>
 #include <mlx.h>
 #include <stdio.h>
+#include <math.h>
 
 static int	print_line_condition(t_coord v, int i, t_coord *i_coord)
 {
@@ -32,7 +33,7 @@ static int	print_line_condition(t_coord v, int i, t_coord *i_coord)
 	return (0);
 }
 
-static void	print_line_loop(t_pixel p1, t_pixel p2, t_coord v, t_mlx mlx)
+void	print_line_loop(t_pixel p1, t_pixel p2, t_coord v, t_mlx mlx)
 {
 	int		i;
 	t_coord	i_coord;
@@ -62,10 +63,10 @@ void	print_line(t_point p1, t_point p2, t_mlx mlx)
 	if (!in_window(p1.pixel.coord.x, p1.pixel.coord.y)
 		&& !in_window(p2.pixel.coord.x, p2.pixel.coord.y))
 		return ;
-	v = set_coord(p2.pixel.coord.x - p1.pixel.coord.x,
-			p2.pixel.coord.y - p1.pixel.coord.y, 0);
-	v = set_coord(p2.pixel.coord.x - p1.pixel.coord.x,
-			p2.pixel.coord.y - p1.pixel.coord.y, 0);
+	v = set_coord(p2.pixel.coord.x - p1.pixel.coord.x, p2.pixel.coord.y
+			- p1.pixel.coord.y, 0);
+	v = set_coord(p2.pixel.coord.x - p1.pixel.coord.x, p2.pixel.coord.y
+			- p1.pixel.coord.y, 0);
 	v = set_coord(v.x + (1 * wati_sig(v.x)), v.y + (1 * wati_sig(v.y)), 0);
 	print_line_loop(p1.pixel, p2.pixel, v, mlx);
 }

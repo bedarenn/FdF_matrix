@@ -6,7 +6,7 @@
 /*   By: bedarenn <bedarenn@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 14:49:41 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/01/26 14:10:18 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/02/09 12:15:11 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,15 +60,22 @@ void	matrix_yz(long double matrix[3][3], long double t);
 void	matrix_zx(long double matrix[3][3], long double t);
 void	matrix_iso(long double matrix[3][3]);
 
-/*    multiply_matrix    */
-void	mutiply_map(t_point **map, t_coord size, t_theta t, t_zoom zoom);
-t_trigo	multiply_matrix(t_trigo m, long double matrix[3][3]);
+/*    matrix_apply    */
+void	apply_to_map(t_point **map, t_coord size, t_theta t, t_zoom zoom);
 t_coord	apply_zoom(t_trigo m, t_zoom zoom);
 int		in_window(int x, int y);
+
+/*    matrix_multiply    */
+t_trigo	vector_multiply(t_trigo m, long double matrix[3][3]);
+void	matrix_multiply(long double matrix[3][3],
+			long double m1[3][3], long double m2[3][3]);
+void	matrix_dup(long double dst[3][3], long double src[3][3]);
 
 /*    print_line    */
 void	print_line(t_point p1, t_point p2, t_mlx mlx);
 void	put_pixel(t_mlx mlx, int x, int y, t_color color);
+void	draw_line_bresenham(t_pixel p1, t_pixel p2, t_mlx mlx);
+void	put_pixel_p(t_mlx mlx, int x, int y, t_color *color);
 
 /*    print_map    */
 void	print_data(t_var *var);
