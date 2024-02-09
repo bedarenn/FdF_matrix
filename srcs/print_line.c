@@ -6,14 +6,13 @@
 /*   By: bedarenn <bedarenn@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/06 12:36:34 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/02/09 12:13:50 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/02/09 12:26:40 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <fdf.h>
 #include <libwati.h>
 #include <mlx.h>
-#include <stdio.h>
 #include <math.h>
 
 static int	print_line_condition(t_coord v, int i, t_coord *i_coord)

@@ -6,7 +6,7 @@
 /*   By: bedarenn <bedarenn@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 17:09:54 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/01/21 17:54:56 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/02/09 12:52:15 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ t_list	*get_parts(char *file_name)
 	t_list	*parts;
 
 	fd = open(file_name, O_RDONLY);
-	if (!fd)
+	if (fd < 0)
 		return (NULL);
 	file = get_file_list(fd);
 	wati_printf("read done\n");

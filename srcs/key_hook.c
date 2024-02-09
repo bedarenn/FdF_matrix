@@ -6,7 +6,7 @@
 /*   By: bedarenn <bedarenn@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 19:11:49 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/02/09 12:16:50 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/02/09 12:27:15 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,9 @@
 #include <fdf_keymap.h>
 #include <mlx.h>
 #include <stdlib.h>
-#include <stdio.h>
 
 int	key_hook(int keycode, void *var)
 {
-	wati_printf("%i\n", keycode);
 	if (keycode == KEY_ESCAPE)
 		win_close(var);
 	else if (key_arrow(keycode, var))
@@ -51,8 +49,6 @@ int	key_other(int keycode, t_var *var)
 		print_map(var->map, var->size, var->mlx);
 		mlx_put_image_to_window(var->mlx.ptr, var->mlx.win, var->mlx.img, 0, 0);
 	}
-	if (keycode == KEY_X)
-		printf("xy%Lf yz%Lf zx%Lf\n", var->t.xy, var->t.yz, var->t.zx);
 	else
 		return (0);
 	return (1);

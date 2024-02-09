@@ -6,7 +6,7 @@
 /*   By: bedarenn <bedarenn@student.42angouleme.fr  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 20:37:56 by bedarenn          #+#    #+#             */
-/*   Updated: 2024/01/21 17:38:40 by bedarenn         ###   ########.fr       */
+/*   Updated: 2024/02/09 12:49:10 by bedarenn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,18 +27,25 @@ size_t	part_size(char **file0)
 t_coord	parts_size(t_list *parts)
 {
 	t_coord	size;
+	int		line_size;
 
-	if (!parts)
+	if (!parts->content)
 	{
 		size.x = 0;
-		size.y = 0;
 		return (size);
 	}
 	size.y = 1;
-	size.x = part_size(parts->content);
+	line_size = part_size(parts->content);
+	size.x = line_size;
 	parts = parts->next;
-	while (parts && (int)part_size(parts->content) == size.x)
+	while (parts && parts->content)
 	{
+		size.x = part_size(parts->content);
+		if (size.x != line_size)
+		{
+			size.x = 0;
+			return (size);
+		}
 		size.y++;
 		parts = parts->next;
 	}
